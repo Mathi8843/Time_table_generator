@@ -96,6 +96,20 @@ button:active {
     margin-top: 30px;
 }
 
+#download-csv {
+    background-color: #2ecc71;
+    margin: 10px 0;
+    width: 150px;
+}
+
+#download-csv:hover {
+    background-color: #27ae60;
+}
+
+#download-csv:active {
+    background-color: #219653;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -129,7 +143,16 @@ tr:hover td {
     background-color: #ecf0f1;
 }
 
-/* Responsive Design */
+td.break {
+    background-color: #f1c40f;
+    color: #333;
+}
+
+td.lunch {
+    background-color: #e67e22;
+    color: #fff;
+}
+
 @media (max-width: 768px) {
     body {
         padding: 10px;

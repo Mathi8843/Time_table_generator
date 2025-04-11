@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Timetable Generator</title>
-    <link rel="stylesheet" href="static\style.css">
+    <link rel="stylesheet" href="static/style.css">
 </head>
 <body>
     <h1>Timetable Generator</h1>
@@ -66,6 +66,7 @@
 
     <div id="timetable-output" style="display: none;">
         <h2>Generated Timetable</h2>
+        <button id="download-csv">Download as CSV</button>
         <div id="timetable-tables"></div>
     </div>
 
@@ -182,6 +183,8 @@
             }
         });
 
+        let timetableData = null;
+
         document.getElementById('timetable-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const formData = new FormData(this);
@@ -191,25 +194,96 @@
             })
             .then(response => response.json())
             .then(data => {
+                timetableData = data; // Store for CSV export
                 const timetableTables = document.getElementById('timetable-tables');
                 timetableTables.innerHTML = '';
-                for (const [className, schedule] of Object.entries(data)) {
-                    let tableHTML = `<h3>${className} Timetable</h3><table><tr><th>Period</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr>`;
-                    for (let i = 0; i < schedule.Monday.length; i++) {
-                        tableHTML += `<tr><td>${i + 1}</td>`;
-                        tableHTML += `<td>${schedule.Monday[i] || ''}</td>`;
-                        tableHTML += `<td>${schedule.Tuesday[i] || ''}</td>`;
-                        tableHTML += `<td>${schedule.Wednesday[i] || ''}</td>`;
-                        tableHTML += `<td>${schedule.Thursday[i] || ''}</td>`;
-                        tableHTML += `<td>${schedule.Friday[i] || ''}</td>`;
-                        tableHTML += `</tr>`;
+                const periods = parseInt(document.getElementById('periods-per-day').value);
+                const breakPeriods = Array.from(document.querySelectorAll('[name^="break-period-"]')).map(input => parseInt(input.value) - 1);
+                const lunchPeriod = parseInt(document.getElementById('lunch-period').value) - 1;
+
+                // Class Timetables
+                for (const [className, schedule] of Object.entries(data.classes)) {
+                    let tableHTML = `<h3>${className} Timetable</h3><table><tr><th>Day</th>`;
+                    for (let i = 1; i <= periods; i++) {
+                        tableHTML += `<th>Period ${i}</th>`;
                     }
+                    tableHTML += `</tr>`;
+                    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+                    days.forEach(day => {
+                        tableHTML += `<tr><td>${day}</td>`;
+                        schedule[day].forEach((period, index) => {
+                            let className = '';
+                            if (breakPeriods.includes(index)) className = 'break';
+                            else if (index === lunchPeriod) className = 'lunch';
+                            tableHTML += `<td class="${className}">${period || ''}</td>`;
+                        });
+                        tableHTML += `</tr>`;
+                    });
                     tableHTML += `</table>`;
                     timetableTables.innerHTML += tableHTML;
                 }
+
+                // Staff Timetables
+                for (const [staffName, schedule] of Object.entries(data.staff)) {
+                    let tableHTML = `<h3>${staffName} Timetable</h3><table><tr><th>Day</th>`;
+                    for (let i = 1; i <= periods; i++) {
+                        tableHTML += `<th>Period ${i}</th>`;
+                    }
+                    tableHTML += `</tr>`;
+                    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+                    days.forEach(day => {
+                        tableHTML += `<tr><td>${day}</td>`;
+                        schedule[day].forEach((period, index) => {
+                            let className = '';
+                            if (breakPeriods.includes(index)) className = 'break';
+                            else if (index === lunchPeriod) className = 'lunch';
+                            tableHTML += `<td class="${className}">${period || ''}</td>`;
+                        });
+                        tableHTML += `</tr>`;
+                    });
+                    tableHTML += `</table>`;
+                    timetableTables.innerHTML += tableHTML;
+                }
+
                 document.getElementById('timetable-output').style.display = 'block';
             })
             .catch(error => console.error('Error:', error));
+        });
+
+        document.getElementById('download-csv').addEventListener('click', function() {
+            if (!timetableData) return;
+
+            let csvContent = "data:text/csv;charset=utf-8,";
+
+            // Class Timetables
+            for (const [className, schedule] of Object.entries(timetableData.classes)) {
+                csvContent += `${className} Timetable\n`;
+                csvContent += "Day," + Array.from({length: timetableData.classes[className]["Monday"].length}, (_, i) => `Period ${i + 1}`).join(",") + "\n";
+                const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+                days.forEach(day => {
+                    csvContent += `${day},` + (schedule[day].map(p => p ? `"${p}"` : "").join(",")) + "\n";
+                });
+                csvContent += "\n";
+            }
+
+            // Staff Timetables
+            for (const [staffName, schedule] of Object.entries(timetableData.staff)) {
+                csvContent += `${staffName} Timetable\n`;
+                csvContent += "Day," + Array.from({length: timetableData.staff[staffName]["Monday"].length}, (_, i) => `Period ${i + 1}`).join(",") + "\n";
+                const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+                days.forEach(day => {
+                    csvContent += `${day},` + (schedule[day].map(p => p ? `"${p}"` : "").join(",")) + "\n";
+                });
+                csvContent += "\n";
+            }
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "timetable.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         });
     </script>
 </body>

@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, render_template
-from timetable import Department, TimetableGenerator  # Import your timetable code
+from timetable import Department, TimetableGenerator
 
 app = Flask(__name__)
 
@@ -65,19 +65,36 @@ def generate_timetable():
     generator = TimetableGenerator(department)
     timetable = generator.generate()
 
-    # Format timetable for JSON response
-    formatted_timetable = {}
+    # Format class timetable (days as rows, periods as columns)
+    formatted_timetable = {'classes': {}, 'staff': {}}
     for cls_name, schedule in timetable.items():
-        formatted_schedule = {day: [] for day in config['days']}
-        for day, periods in schedule.items():
+        formatted_schedule = {}
+        for day in config['days']:  # Ensure order: Monday to Friday
             formatted_schedule[day] = [None] * config['periods_per_day']
-            for i, period in enumerate(periods):
+            for i, period in enumerate(schedule[day]):
                 if period:
                     if period['type'] == 'lecture':
                         formatted_schedule[day][i] = f"{period['subject']} ({period['type']}) - {period['staff']}"
                     else:
                         formatted_schedule[day][i] = f"{period['subject']} ({period['type']})"
-        formatted_timetable[cls_name] = formatted_schedule
+                elif i in config['break_periods']:
+                    formatted_schedule[day][i] = "Break"
+                elif i == config['lunch_period']:
+                    formatted_schedule[day][i] = "Lunch"
+        formatted_timetable['classes'][cls_name] = formatted_schedule
+
+    # Generate staff timetable
+    for staff_name, staff_obj in department.staff.items():
+        staff_schedule = {day: [None] * config['periods_per_day'] for day in config['days']}
+        for day in config['days']:
+            for i, cls_name in enumerate(staff_obj.schedule[day]):
+                if cls_name:
+                    staff_schedule[day][i] = f"{cls_name} - {timetable[cls_name][day][i]['subject']} (lecture)"
+                elif i in config['break_periods']:
+                    staff_schedule[day][i] = "Break"
+                elif i == config['lunch_period']:
+                    staff_schedule[day][i] = "Lunch"
+        formatted_timetable['staff'][staff_name] = staff_schedule
 
     return jsonify(formatted_timetable)
 
