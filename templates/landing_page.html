@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TimeTableGen - Automatic Timetable Generator</title>
+    <meta name="description" content="Generate conflict-free academic schedules in minutes with our intelligent timetable generator." />
+    <link rel="stylesheet" href="static/landing.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <!-- Header -->
+      <div class="container">
+        <div class="header-content">
+          <a href="#" class="logo">TimeTable<span class="text-orange">Gen</span></a>
+          
+          <!-- Desktop Navigation -->
+          <nav class="nav-desktop">
+            <a href="#features" class="nav-link">Features</a>
+            <a href="#how-it-works" class="nav-link">How It Works</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="/index" class="btn btn-primary">Launch App</a>
+          </nav>
+
+          <!-- Mobile Menu Button -->
+          <button class="mobile-menu-btn">
+            <span class="hamburger"></span>
+          </button>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div class="nav-mobile">
+          <a href="#features" class="nav-link">Features</a>
+          <a href="#how-it-works" class="nav-link">How It Works</a>
+          <a href="#about" class="nav-link">About</a>
+          <a href="/" class="btn btn-primary btn-full">Launch App</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="container">
+          <div class="hero-content">
+            <div class="hero-text fade-in">
+              <h1 class="hero-title">Automatic <span class="text-blue">Timetable</span> Generator</h1>
+              <p class="hero-description">
+                Create conflict-free academic schedules in minutes, not hours. Optimize classroom and faculty resources with our intelligent scheduling system.
+              </p>
+              <div class="hero-buttons">
+                <a href="/index" class="btn btn-primary">Generate Timetable</a>
+                <a href="#how-it-works" class="btn btn-outline">Learn More</a>
+              </div>
+            </div>
+            <div class="hero-image slide-up">
+              <div class="timetable-preview">
+                <div class="timetable-grid">
+                  <div class="timetable-header">Time</div>
+                  <div class="timetable-header">Mon</div>
+                  <div class="timetable-header">Tue</div>
+                  <div class="timetable-header">Wed</div>
+                  <div class="timetable-header">Thu</div>
+                  <div class="timetable-header">Fri</div>
+                  
+                  <div class="timetable-time">9:00</div>
+                  <div class="timetable-cell bg-blue-light">Math</div>
+                  <div class="timetable-cell bg-green-light">Sci</div>
+                  <div class="timetable-cell bg-blue-light">Math</div>
+                  <div class="timetable-cell bg-yellow-light">Eng</div>
+                  <div class="timetable-cell bg-purple-light">Hist</div>
+                  
+                  <div class="timetable-time">10:00</div>
+                  <div class="timetable-cell bg-green-light">Sci</div>
+                  <div class="timetable-cell bg-yellow-light">Eng</div>
+                  <div class="timetable-cell bg-purple-light">Hist</div>
+                  <div class="timetable-cell bg-blue-light">Math</div>
+                  <div class="timetable-cell bg-green-light">Sci</div>
+                  
+                  <div class="timetable-time">11:00</div>
+                  <div class="timetable-cell bg-yellow-light">Eng</div>
+                  <div class="timetable-cell bg-purple-light">Hist</div>
+                  <div class="timetable-cell bg-red-light">CS</div>
+                  <div class="timetable-cell bg-green-light">Sci</div>
+                  <div class="timetable-cell bg-blue-light">Math</div>
+                </div>
+                <div class="auto-gen-badge">AUTO<br>GEN</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features Section -->
+      <section id="features" class="features">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">Powerful <span class="text-blue">Features</span></h2>
+            <p class="section-description">
+              Our timetable generator uses advanced algorithms to create optimal schedules
+              while meeting all your requirements.
+            </p>
+          </div>
+          
+          <div class="features-grid">
+            <!-- Feature 1 -->
+            <div class="feature-card">
+              <div class="feature-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              </div>
+              <h3 class="feature-title">Save Time</h3>
+              <p class="feature-description">Generate complete timetables in minutes instead of days of manual scheduling.</p>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="feature-card">
+              <div class="feature-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+              </div>
+              <h3 class="feature-title">Conflict Detection</h3>
+              <p class="feature-description">Automatically identify and resolve scheduling conflicts between teachers, rooms, and classes.</p>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="feature-card">
+              <div class="feature-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>
+              </div>
+              <h3 class="feature-title">Teacher Preferences</h3>
+              <p class="feature-description">Account for teacher availability and preferences in the scheduling process.</p>
+            </div>
+            
+            <!-- Feature 4 -->
+            <div class="feature-card">
+              <div class="feature-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+              </div>
+              <h3 class="feature-title">Resource Optimization</h3>
+              <p class="feature-description">Maximize efficient use of classrooms and other resources.</p>
+            </div>
+            
+            <!-- Feature 5 -->
+            <div class="feature-card">
+              <div class="feature-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              </div>
+              <h3 class="feature-title">Multiple Departments</h3>
+              <p class="feature-description">Generate timetables for multiple departments or faculties simultaneously.</p>
+            </div>
+            
+            <!-- Feature 6 -->
+            <div class="feature-card">
+              <div class="feature-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <h3 class="feature-title">Customizable Rules</h3>
+              <p class="feature-description">Define your own constraints and rules for schedule generation.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- How It Works Section -->
+      <section id="how-it-works" class="how-it-works">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">How It <span class="text-blue">Works</span></h2>
+            <p class="section-description">
+              Create perfect timetables in just four simple steps
+            </p>
+          </div>
+          
+          <div class="steps-container">
+            <div class="timeline-line"></div>
+            
+            <!-- Step 1 -->
+            <div class="step-item">
+              <div class="step-number bg-blue-light">01</div>
+              <div class="step-content">
+                <h3 class="step-title">Input Your Data</h3>
+                <p class="step-description">Enter details about classes, teachers, rooms, and time slots available.</p>
+              </div>
+            </div>
+            
+            <!-- Step 2 -->
+            <div class="step-item">
+              <div class="step-number bg-green-light">02</div>
+              <div class="step-content">
+                <h3 class="step-title">Define Constraints</h3>
+                <p class="step-description">Set rules like teacher availability, room capacity, and course requirements.</p>
+              </div>
+            </div>
+            
+            <!-- Step 3 -->
+            <div class="step-item">
+              <div class="step-number bg-yellow-light">03</div>
+              <div class="step-content">
+                <h3 class="step-title">Generate Timetable</h3>
+                <p class="step-description">Our algorithm creates an optimized schedule based on your inputs and constraints.</p>
+              </div>
+            </div>
+            
+            <!-- Step 4 -->
+            <div class="step-item">
+              <div class="step-number bg-orange-light">04</div>
+              <div class="step-content">
+                <h3 class="step-title">Review & Adjust</h3>
+                <p class="step-description">Review the generated timetable, make manual adjustments if needed, and finalize.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Section -->
+      <section id="about" class="about">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">About <span class="text-blue">TimeTableGen</span></h2>
+            <p class="section-description">
+              TimeTableGen was created to solve the complex puzzle of educational scheduling. 
+              Our system uses advanced algorithms to create optimal timetables that respect all constraints 
+              while maximizing resource utilization and stakeholder satisfaction.
+            </p>
+            <a href="/index" class="btn btn-primary mt-4">Try It Now</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3 class="footer-logo">TimeTable<span class="text-orange">Gen</span></h3>
+            <p>
+              Automatic timetable generation solution for educational institutions. 
+              Save time and optimize your scheduling process.
+            </p>
+          </div>
+          
+          <div class="footer-section">
+            <h4 class="footer-title">Quick Links</h4>
+            <ul class="footer-links">
+              <li><a href="#features">Features</a></li>
+              <li><a href="#how-it-works">How It Works</a></li>
+              <li><a href="#about">About</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-section">
+            <h4 class="footer-title">Get Started</h4>
+            <p class="mb-4">
+              Ready to streamline your timetable creation? Launch the app now to begin.
+            </p>
+            <a href="/index" class="btn btn-primary">Launch App</a>
+          </div>
+        </div>
+        
+        <div class="footer-bottom">
+          <p>© <span id="current-year"></span> TimeTableGen. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Set current year in footer
+      document.getElementById('current-year').textContent = new Date().getFullYear();
+      
+      // Mobile menu toggle
+      const menuBtn = document.querySelector('.mobile-menu-btn');
+      const mobileNav = document.querySelector('.nav-mobile');
+      
+      menuBtn.addEventListener('click', () => {
+        mobileNav.classList.toggle('active');
+        menuBtn.classList.toggle('active');
+      });
+      
+      // Close mobile menu when clicking on links
+      const mobileNavLinks = document.querySelectorAll('.nav-mobile .nav-link');
+      mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileNav.classList.remove('active');
+          menuBtn.classList.remove('active');
+        });
+      });
+    </script>
+  </body>
+</html>

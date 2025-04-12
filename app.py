@@ -5,6 +5,10 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
+    return render_template('landing_page.html')
+
+@app.route('/index')
+def index_page():
     return render_template('index.html')
 
 @app.route('/generate', methods=['POST'])
