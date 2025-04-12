@@ -9,67 +9,80 @@
 <body>
     <div class="container">
         <div class="header-content">
-          <a href="#" class="logo">TimeTable<span class="text-orange">Gen</span></a>
-      </div>
+            <a href="#" class="logo">TimeTable<span class="text-orange">Gen</span></a>
+        </div>
     </header>
     <h1>Timetable Generator</h1>
 
+    <div class="main-content">
+        <!-- Form Section -->
+        <div class="left-column" id="form-container">
+            <form id="timetable-form">
+                <div class="form-section">
+                    <h2>Basic Information</h2>
+                    <div class="input-group">
+                        <label for="class-names">Class Names (space-separated):</label><br>
+                        <input type="text" id="class-names" name="class-names" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="periods-per-day">Number of Hours per Day:</label><br>
+                        <input type="number" id="periods-per-day" name="periods-per-day" min="1" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="num-breaks">Number of Breaks:</label><br>
+                        <input type="number" id="num-breaks" name="num-breaks" min="0" required>
+                    </div>
+                    <div id="break-periods"></div>
+                    <div class="input-group">
+                        <label for="lunch-period">Lunch Period Number:</label><br>
+                        <input type="number" id="lunch-period" name="lunch-period" min="1" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="break-duration">Break Duration (minutes):</label><br>
+                        <input type="number" id="break-duration" name="break-duration" min="1" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="lunch-duration">Lunch Duration (minutes):</label><br>
+                        <input type="number" id="lunch-duration" name="lunch-duration" min="1" required>
+                    </div>
+                    <div id="period-durations"></div>
+                </div>
 
-    <form id="timetable-form">
-        <div class="form-section">
-            <h2>Basic Information</h2>
-            <div class="input-group">
-                <label for="class-names">Class Names (space-separated):</label><br>
-                <input type="text" id="class-names" name="class-names" required>
-            </div>
-            <div class="input-group">
-                <label for="periods-per-day">Number of Hours per Day (including breaks and lunch):</label><br>
-                <input type="number" id="periods-per-day" name="periods-per-day" min="1" required>
-            </div>
-            <div class="input-group">
-                <label for="num-breaks">Number of Breaks:</label><br>
-                <input type="number" id="num-breaks" name="num-breaks" min="0" required>
-            </div>
-            <div id="break-periods"></div>
-            <div class="input-group">
-                <label for="lunch-period">Lunch Period Number (1-based):</label><br>
-                <input type="number" id="lunch-period" name="lunch-period" min="1" required>
-            </div>
-            <div class="input-group">
-                <label for="break-duration">Duration for Each Break (minutes):</label><br>
-                <input type="number" id="break-duration" name="break-duration" min="1" required>
-            </div>
-            <div class="input-group">
-                <label for="lunch-duration">Duration for Lunch (minutes):</label><br>
-                <input type="number" id="lunch-duration" name="lunch-duration" min="1" required>
-            </div>
-            <div id="period-durations"></div>
+                <div class="form-section" id="subjects-section">
+                    <h2>Subjects</h2>
+                </div>
+
+                <div class="form-section">
+                    <h2>Staff</h2>
+                    <div class="input-group">
+                        <label for="num-staff">Number of Staff Members:</label><br>
+                        <input type="number" id="num-staff" name="num-staff" min="1" required>
+                    </div>
+                    <div id="staff-details"></div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Special Hours</h2>
+                    <div class="input-group">
+                        <label for="num-special">Number of Special Hours:</label><br>
+                        <input type="number" id="num-special" name="num-special" min="0" required>
+                    </div>
+                    <div id="special-hours"></div>
+                </div>
+
+                <button type="submit">Generate Timetable</button>
+            </form>
         </div>
 
-        <div class="form-section" id="subjects-section">
-            <h2>Subjects</h2>
-        </div>
-
-        <div class="form-section">
-            <h2>Staff</h2>
-            <div class="input-group">
-                <label for="num-staff">Number of Staff Members:</label><br>
-                <input type="number" id="num-staff" name="num-staff" min="1" required>
+        <!-- Poster Section -->
+        <div class="right-column" id="poster-container">
+            <div class="poster">
+                <h2>Organize Your Schedule!</h2>
+                <p>Create perfect timetables with ease. Manage classes, staff, and special hours efficiently.</p>
+                <img src="static\image\Poster.jpeg" alt="Timetable Poster" class="poster-image">
             </div>
-            <div id="staff-details"></div>
         </div>
-
-        <div class="form-section">
-            <h2>Special Hours</h2>
-            <div class="input-group">
-                <label for="num-special">Number of Special Hours (e.g., library):</label><br>
-                <input type="number" id="num-special" name="num-special" min="0" required>
-            </div>
-            <div id="special-hours"></div>
-        </div>
-
-        <button type="submit">Generate Timetable</button>
-    </form>
+    </div>
 
     <div id="timetable-output" style="display: none;">
         <h2>Generated Timetable</h2>
@@ -78,6 +91,7 @@
     </div>
 
     <script>
+        // JavaScript remains unchanged
         document.getElementById('num-breaks').addEventListener('change', function() {
             const numBreaks = parseInt(this.value);
             const breakPeriodsDiv = document.getElementById('break-periods');
@@ -201,14 +215,13 @@
             })
             .then(response => response.json())
             .then(data => {
-                timetableData = data; // Store for CSV export
+                timetableData = data;
                 const timetableTables = document.getElementById('timetable-tables');
                 timetableTables.innerHTML = '';
                 const periods = parseInt(document.getElementById('periods-per-day').value);
                 const breakPeriods = Array.from(document.querySelectorAll('[name^="break-period-"]')).map(input => parseInt(input.value) - 1);
                 const lunchPeriod = parseInt(document.getElementById('lunch-period').value) - 1;
 
-                // Class Timetables
                 for (const [className, schedule] of Object.entries(data.classes)) {
                     let tableHTML = `<h3>${className} Timetable</h3><table><tr><th>Day</th>`;
                     for (let i = 1; i <= periods; i++) {
@@ -230,7 +243,6 @@
                     timetableTables.innerHTML += tableHTML;
                 }
 
-                // Staff Timetables
                 for (const [staffName, schedule] of Object.entries(data.staff)) {
                     let tableHTML = `<h3>${staffName} Timetable</h3><table><tr><th>Day</th>`;
                     for (let i = 1; i <= periods; i++) {
@@ -262,7 +274,6 @@
 
             let csvContent = "data:text/csv;charset=utf-8,";
 
-            // Class Timetables
             for (const [className, schedule] of Object.entries(timetableData.classes)) {
                 csvContent += `${className} Timetable\n`;
                 csvContent += "Day," + Array.from({length: timetableData.classes[className]["Monday"].length}, (_, i) => `Period ${i + 1}`).join(",") + "\n";
@@ -273,7 +284,6 @@
                 csvContent += "\n";
             }
 
-            // Staff Timetables
             for (const [staffName, schedule] of Object.entries(timetableData.staff)) {
                 csvContent += `${staffName} Timetable\n`;
                 csvContent += "Day," + Array.from({length: timetableData.staff[staffName]["Monday"].length}, (_, i) => `Period ${i + 1}`).join(",") + "\n";
