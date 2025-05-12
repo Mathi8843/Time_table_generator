@@ -1,15 +1,88 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, redirect, session
 from timetable import Department, TimetableGenerator
 
+import sqlite3
+import bcrypt
+
+
 app = Flask(__name__)
+app.secret_key = 'your_secret_key_here'  # Required for session management
+
+def init_db():
+    conn = sqlite3.connect('database.db')
+    conn.execute('CREATE TABLE IF NOT EXISTS users (username TEXT UNIQUE, password TEXT)')
+    conn.close()
+    
+
 
 @app.route('/')
 def index():
+    return render_template('register.html')
+
+@app.route('/register', methods=['GET'])
+def show_register():
+    return render_template('register.html')
+
+@app.route('/register', methods=['POST'])
+def register():
+    username = request.form['username']
+    password = request.form['password'].encode('utf-8')
+    hashed = bcrypt.hashpw(password, bcrypt.gensalt())
+
+    try:
+        conn = sqlite3.connect('database.db')
+        conn.execute("INSERT INTO users (username, password) VALUES (?, ?)", (username, hashed))
+        conn.commit()
+        conn.close()
+        return '''
+            <script>
+                alert("User registered successfully!");
+                window.location.href = "/login";
+            </script>
+        '''
+    except sqlite3.IntegrityError:
+        return '''
+            <script>
+                alert("Account already exists! Please use a different username.");
+                window.location.href = "/";
+            </script>
+        '''
+
+@app.route('/home', methods=['GET'])
+def home():
     return render_template('landing_page.html')
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'GET':
+        return render_template('login.html')
+    else:
+        username = request.form['username']
+        password = request.form['password'].encode('utf-8')
+
+        conn = sqlite3.connect('database.db')
+        cursor = conn.execute("SELECT password FROM users WHERE username=?", (username,))
+        result = cursor.fetchone()
+        conn.close()
+
+        if result and bcrypt.checkpw(password, result[0]):
+            session['username'] = username  # Store the user's session
+            return render_template('landing_page.html')
+        else:
+            return '''
+                <script>
+                    alert("Invalid username or password. Try again.");
+                    window.location.href = "/login";
+                </script>
+            '''
+# --------------------------------------------
 
 @app.route('/index')
 def index_page():
     return render_template('index.html')
+
+
 
 @app.route('/generate', methods=['POST'])
 def generate_timetable():

@@ -9,14 +9,14 @@
 <body>
     <div class="container">
         <div class="header-content">
-            <a href="#" class="logo">TimeTable<span class="text-orange">Gen</span></a>
+            <a href="/home" class="logo">TimeTable<span class="text-orange">Gen</span></a>
         </div>
     </header>
     <h1>Timetable Generator</h1>
 
     <div class="main-content">
-        <!-- Form Section -->
-        <div class="left-column" id="form-container">
+        <!-- Left Column: Form -->
+        <div class="left-column">
             <form id="timetable-form">
                 <div class="form-section">
                     <h2>Basic Information</h2>
@@ -74,12 +74,12 @@
             </form>
         </div>
 
-        <!-- Poster Section -->
-        <div class="right-column" id="poster-container">
+        <!-- Right Column: Poster -->
+        <div class="right-column">
             <div class="poster">
                 <h2>Organize Your Schedule!</h2>
                 <p>Create perfect timetables with ease. Manage classes, staff, and special hours efficiently.</p>
-                <img src="static\image\Poster.jpeg" alt="Timetable Poster" class="poster-image">
+                <img src="static\image\poster2.jpeg" alt="Timetable Poster" class="poster-image">
             </div>
         </div>
     </div>
@@ -91,7 +91,6 @@
     </div>
 
     <script>
-        // JavaScript remains unchanged
         document.getElementById('num-breaks').addEventListener('change', function() {
             const numBreaks = parseInt(this.value);
             const breakPeriodsDiv = document.getElementById('break-periods');

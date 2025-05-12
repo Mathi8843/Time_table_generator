@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .register-container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 22px;
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        input:invalid {
+            border-color: #dc3545;
+        }
+
+        .error-msg {
+            color: #dc3545;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .privacy-text {
+            font-size: 12px;
+            color: #555;
+            margin: 10px 0 20px 0;
+        }
+
+        .privacy-text a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .submit-btn {
+            background-color: #007bff;
+            color: #fff;
+            padding: 12px;
+            font-size: 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #777;
+            text-align: center;
+        }
+
+        .footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <h1>welcome to testing</h1>
+        <form action="/register" method="post">
+            <label for="username">Email address:</label>
+            <input type="email" name="username" placeholder="Enter your email" required>
+            {% if error and 'email' in error %}
+                <div class="error-msg">{{ error }}</div>
+            {% endif %}
+
+            <label for="password">Password:</label>
+            <input type="password" name="password" placeholder="Create a password" required>
+            {% if error and 'password' in error %}
+                <div class="error-msg">{{ error }}</div>
+            {% endif %}
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" name="confirm_password" placeholder="Confirm your password" required>
+            {% if error and 'confirm_password' in error %}
+                <div class="error-msg">{{ error }}</div>
+            {% endif %}
+            <div >
+                <input type="checkbox" name="terms" required>
+                <label for="terms" > verified</label>
+            </div>
+            <button type="submit" class="submit-btn">Signup</button>
+        </form>
+        <div class="register-link">
+            <p>Already have an account? <a href="/login">login.</a></p>
+          </div>
+    </div>
+</body>
+</html>

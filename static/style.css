@@ -47,22 +47,34 @@ h3 {
 /* Main content layout */
 .main-content {
   display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
+  gap: 30px;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  justify-content: space-between;
 }
 
 .left-column {
-  flex: 1;
-  min-width: 300px;
-  max-width: 600px;
+  flex: 2;
+  min-width: 400px;
+  max-width: 800px;
+  overflow-y: auto; /* Keeps scrolling functionality */
+  max-height: 80vh;
+  /* Hide scrollbar for Webkit browsers (Chrome, Safari) */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on touch devices */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  -ms-overflow-style: none; /* Hide scrollbar for IE/Edge */
 }
 
+.left-column::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Webkit browsers */
+}
+
+/* Right column styles */
 .right-column {
-  flex: 1;
-  min-width: 300px;
+  flex: 0 0 400px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
+  align-items: flex-start;
 }
 
 /* Form styles */
@@ -124,23 +136,29 @@ button:hover {
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   text-align: center;
-  max-width: 400px;
+  width: 400px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .poster h2 {
   color: var(--orange);
   margin-bottom: 15px;
+  font-size: 24px;
 }
 
 .poster p {
   color: var(--text-medium);
   margin-bottom: 20px;
+  font-size: 16px;
 }
 
 .poster-image {
   width: 100%;
-  max-width: 300px;
-  height: auto;
+  height: 400px;
+  object-fit: cover;
   border-radius: 8px;
 }
 
@@ -201,26 +219,45 @@ td.lunch {
 @media (max-width: 768px) {
   .main-content {
       flex-direction: column;
+      flex-wrap: wrap;
   }
 
-  .left-column, .right-column {
+  .left-column {
       max-width: 100%;
+      max-height: none;
+  }
+
+  .right-column {
+      flex: 1;
+      width: 100%;
+      justify-content: center;
   }
 
   .poster {
-      max-width: 100%;
+      width: 100%;
+      height: auto;
+      max-width: 400px;
+      margin: 0 auto;
   }
 
-  table {
-      font-size: 14px;
-  }
-
-  th, td {
-      padding: 8px;
+  .poster-image {
+      height: 300px;
   }
 }
 
 @media (max-width: 480px) {
+  .poster h2 {
+      font-size: 20px;
+  }
+
+  .poster p {
+      font-size: 14px;
+  }
+
+  .poster-image {
+      height: 200px;
+  }
+
   table {
       font-size: 12px;
   }
